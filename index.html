@@ -20,7 +20,7 @@
             overflow-x: hidden;
         }
 
-        /* Обновленный лоадер без круга */
+        /* Обновленный лоадер */
         .loader {
             position: fixed;
             top: 0;
@@ -124,6 +124,7 @@
             margin: 0 auto;
             padding: 10px;
             min-height: 100vh;
+            position: relative;
         }
 
         .page {
@@ -141,22 +142,22 @@
             display: block;
         }
 
-        /* Обновленная кнопка звука с выпадающим меню */
-        .sound-control {
+        /* Выпадающее меню звука */
+        .sound-dropdown {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
             z-index: 1000;
         }
 
-        .sound-toggle-main {
-            width: 50px;
-            height: 50px;
+        .sound-dropdown-toggle {
+            width: 45px;
+            height: 45px;
             border: none;
             border-radius: 50%;
             background: rgba(102, 126, 234, 0.9);
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -165,99 +166,96 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        .sound-toggle-main:hover {
+        .sound-dropdown-toggle:hover {
             background: rgba(102, 126, 234, 1);
             transform: scale(1.1);
         }
 
-        .sound-toggle-main.muted {
-            background: rgba(244, 67, 54, 0.9);
-        }
-
-        .sound-dropdown {
+        .sound-dropdown-menu {
             position: absolute;
-            top: 60px;
+            top: 55px;
             right: 0;
             background: white;
-            border-radius: 15px;
-            padding: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            padding: 8px;
+            min-width: 120px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
         }
 
-        .sound-dropdown.show {
-            display: flex;
+        .sound-dropdown.active .sound-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         .sound-dropdown-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            background: transparent;
+            gap: 8px;
+            padding: 10px 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            transition: background 0.2s ease;
             font-size: 14px;
             color: #333;
+            white-space: nowrap;
         }
 
         .sound-dropdown-item:hover {
             background: #f5f5f5;
         }
 
-        .sound-dropdown-item .icon {
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
+        .sound-dropdown-item.active {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
         }
 
-        /* Улучшенная шапка игрового экрана */
+        /* Игровая шапка - адаптивная */
         .game-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 15px;
-            margin-bottom: 20px;
+            padding: 12px 15px;
+            background: rgba(102, 126, 234, 0.95);
             color: white;
             backdrop-filter: blur(10px);
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            height: 60px;
         }
 
         .game-score {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
         }
 
         .game-controls {
             display: flex;
-            gap: 10px;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
+            gap: 8px;
         }
 
         .control-btn {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border: none;
             border-radius: 50%;
             background: rgba(255,255,255,0.9);
             color: #667eea;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .control-btn:hover {
@@ -268,6 +266,32 @@
         .control-btn.muted {
             background: rgba(255,0,0,0.9);
             color: white;
+        }
+
+        /* Игровая страница с учетом фиксированной шапки */
+        .game-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            border-radius: 0;
+            min-height: 100vh;
+        }
+
+        .game-content {
+            padding-top: 70px;
+            padding-bottom: 120px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .current-team {
+            text-align: center;
+            font-size: clamp(18px, 5vw, 20px);
+            color: white;
+            margin: 15px 0;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         @keyframes fadeIn {
@@ -313,48 +337,6 @@
         .menu-button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-        }
-
-        /* Новое горизонтальное меню в нижней части стартовой страницы */
-        .bottom-menu {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0 20px 0;
-            padding: 20px;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .bottom-menu-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 15px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 15px;
-            min-width: 70px;
-        }
-
-        .bottom-menu-item:hover {
-            background: #f5f5f5;
-            transform: translateY(-2px);
-        }
-
-        .bottom-menu-item .icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .bottom-menu-item .label {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            line-height: 1.2;
         }
 
         .team-list {
@@ -413,7 +395,7 @@
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
@@ -422,15 +404,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 15px;
+            padding: 15px 10px;
             border: 2px solid #e0e0e0;
             border-radius: 15px;
             background: white;
-            font-size: clamp(14px, 3vw, 16px);
+            font-size: clamp(13px, 3vw, 16px);
             cursor: pointer;
             transition: all 0.3s ease;
             touch-action: manipulation;
-            min-height: 100px;
+            min-height: 90px;
             position: relative;
         }
 
@@ -446,38 +428,38 @@
         }
 
         .category-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 24px;
+            margin-bottom: 6px;
         }
 
         .category-tooltip {
-            font-size: 12px;
+            font-size: 10px;
             opacity: 0.7;
             text-align: center;
-            margin-top: 5px;
+            margin-top: 4px;
         }
 
-        /* Новый стиль барабана для сложности */
+        /* Стиль барабана для сложности */
         .difficulty-selector {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin: 30px 0;
             background: #f8f9fa;
             border-radius: 15px;
-            padding: 30px 20px;
+            padding: 20px 15px;
             border: 1px solid #e9ecef;
         }
 
         .difficulty-btn {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border: 2px solid #667eea;
             border-radius: 50%;
             background: white;
             color: #667eea;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -494,9 +476,9 @@
         }
 
         .difficulty-display {
-            min-width: 150px;
+            min-width: 130px;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             background: white;
             border-radius: 15px;
             border: 2px solid #e9ecef;
@@ -504,25 +486,25 @@
         }
 
         .difficulty-level {
-            font-size: 32px;
-            margin-bottom: 8px;
+            font-size: 28px;
+            margin-bottom: 6px;
         }
 
         .difficulty-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #667eea;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .difficulty-desc {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
         }
 
-        /* Настройки игры с новым дизайном */
+        /* Настройки игры */
         .settings-group {
-            margin: 30px 0;
+            margin: 25px 0;
             background: #f8f9fa;
             border-radius: 15px;
             padding: 20px;
@@ -533,7 +515,7 @@
             display: block;
             margin-bottom: 15px;
             font-weight: 600;
-            font-size: clamp(16px, 4vw, 18px);
+            font-size: clamp(15px, 4vw, 18px);
             color: #667eea;
             text-align: center;
         }
@@ -542,18 +524,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 15px;
+            margin: 15px 0;
         }
 
         .setting-btn {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border: 2px solid #667eea;
             border-radius: 50%;
             background: white;
             color: #667eea;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -574,14 +556,14 @@
         }
 
         .setting-value {
-            min-width: 80px;
+            min-width: 70px;
             text-align: center;
-            font-size: clamp(24px, 6vw, 32px);
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: bold;
             color: #667eea;
-            padding: 10px 20px;
+            padding: 8px 15px;
             background: white;
-            border-radius: 15px;
+            border-radius: 12px;
             border: 2px solid #e9ecef;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -649,21 +631,21 @@
             text-align: left;
         }
 
-        /* Улучшенное игровое поле */
+        /* Игровое поле */
         .game-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 40vh;
+            flex: 1;
+            padding: 20px;
             position: relative;
-            margin: 20px 0;
         }
 
         .game-card {
             position: relative;
-            width: min(320px, 85vw);
-            height: min(320px, 35vh);
+            width: min(300px, 85vw);
+            height: min(300px, 40vh);
             background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
             border: 4px solid #667eea;
             border-radius: 25px;
@@ -671,14 +653,14 @@
             align-items: center;
             justify-content: center;
             color: #333;
-            font-size: clamp(24px, 6vw, 36px);
+            font-size: clamp(20px, 5vw, 32px);
             font-weight: bold;
             cursor: grab;
             user-select: none;
             transition: all 0.3s ease;
             touch-action: none;
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 12px 35px rgba(102, 126, 234, 0.3);
         }
 
@@ -686,13 +668,24 @@
             cursor: grabbing;
         }
 
+        .game-card.countdown {
+            font-size: clamp(60px, 15vw, 120px);
+            color: #667eea;
+            animation: countdownPulse 1s ease-in-out;
+        }
+
+        @keyframes countdownPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
         /* Фоновые подсказки для свайпов */
         .swipe-background {
             position: absolute;
-            top: 60px;
+            top: 0;
             left: 0;
             right: 0;
-            bottom: 120px;
+            bottom: 0;
             display: flex;
             pointer-events: none;
         }
@@ -702,7 +695,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: clamp(24px, 6vw, 36px);
             opacity: 0.1;
             transition: opacity 0.3s ease;
         }
@@ -732,17 +725,17 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            max-width: 400px;
-            margin-top: 30px;
+            max-width: 350px;
+            margin-top: 20px;
         }
 
         .swipe-hint {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 15px 20px;
-            border-radius: 15px;
-            font-size: 16px;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 600;
             color: white;
             animation: hintPulse 3s ease-in-out infinite;
@@ -754,6 +747,10 @@
 
         .swipe-hint.right {
             background: linear-gradient(135deg, #51cf66, #4caf50);
+        }
+
+        .swipe-hint.ready {
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
         @keyframes hintPulse {
@@ -781,7 +778,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 64px;
+            font-size: 56px;
             font-weight: bold;
         }
 
@@ -799,24 +796,24 @@
             opacity: 1;
         }
 
-        /* Таймер внизу экрана */
+        /* Таймер зафиксирован внизу экрана */
         .game-timer {
             position: fixed;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            width: min(200px, 50vw);
-            height: 80px;
+            width: min(180px, 45vw);
+            height: 70px;
             background: rgba(255,255,255,0.95);
-            border-radius: 40px;
+            border-radius: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(32px, 8vw, 48px);
+            font-size: clamp(28px, 7vw, 42px);
             font-weight: bold;
             color: #667eea;
             box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-            z-index: 100;
+            z-index: 1000;
             border: 3px solid #667eea;
         }
 
@@ -992,8 +989,8 @@
         }
 
         .qr-code {
-            width: min(200px, 60vw);
-            height: min(200px, 60vw);
+            width: min(180px, 50vw);
+            height: min(180px, 50vw);
             margin: 30px auto;
             background: rgba(255,255,255,0.95);
             color: #333;
@@ -1001,7 +998,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 20px;
-            font-size: clamp(14px, 3vw, 16px);
+            font-size: clamp(12px, 3vw, 16px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             border: 3px solid #ffd700;
         }
@@ -1038,11 +1035,11 @@
 
         .modal-content {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
-            max-width: 400px;
+            max-width: 380px;
             width: 90%;
-            max-height: 90vh;
+            max-height: 80vh;
             overflow-y: auto;
         }
 
@@ -1107,32 +1104,111 @@
             background: #d0d0d0;
         }
 
-        /* Упрощенные настройки звука */
-        .sound-settings {
-            margin: 20px 0;
+        /* Горизонтальное меню иконок */
+        .bottom-menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0 15px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 1px solid #e9ecef;
+        }
+
+        .bottom-menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 55px;
+            position: relative;
+            background: white;
+            border: 2px solid #e9ecef;
+        }
+
+        .bottom-menu-item:hover {
+            transform: translateY(-2px);
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .bottom-menu-item .icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .bottom-menu-item .label {
+            font-size: 9px;
+            font-weight: 600;
+            color: #667eea;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: rgba(0,0,0,0.8);
+        }
+
+        .bottom-menu-item:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Модальное окно настроек звука */
+        .sound-modal .modal-content {
+            max-width: 400px;
         }
 
         .volume-control {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             margin: 20px 0;
             background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 12px;
         }
 
         .volume-control label {
-            min-width: 140px;
-            font-size: clamp(14px, 3vw, 16px);
+            min-width: 120px;
+            font-size: clamp(13px, 3vw, 15px);
             font-weight: 600;
             color: #667eea;
         }
 
         .volume-control input[type="range"] {
             flex: 1;
-            height: 8px;
-            border-radius: 4px;
+            height: 6px;
+            border-radius: 3px;
             background: #ddd;
             outline: none;
             -webkit-appearance: none;
@@ -1140,39 +1216,40 @@
 
         .volume-control input[type="range"]::-webkit-slider-thumb {
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: #667eea;
             cursor: pointer;
         }
 
         .volume-control .volume-value {
-            min-width: 50px;
+            min-width: 45px;
             text-align: right;
             font-weight: bold;
             color: #667eea;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         /* О приложении в главном меню */
         .main-menu-about {
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
             text-align: center;
             color: #666;
-            font-size: clamp(12px, 3vw, 14px);
-            line-height: 1.6;
+            font-size: clamp(11px, 3vw, 13px);
+            line-height: 1.5;
         }
 
         .main-menu-about h3 {
             color: #667eea;
-            margin-bottom: 15px;
-            font-size: clamp(16px, 4vw, 18px);
+            margin-bottom: 12px;
+            font-size: clamp(15px, 4vw, 17px);
         }
 
         .main-menu-about p {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         /* Предупреждение о выборе тем */
@@ -1192,7 +1269,7 @@
             display: block;
         }
 
-        /* Адаптивность */
+        /* Адаптивность для мобильных */
         @media (max-width: 480px) {
             .container {
                 padding: 5px;
@@ -1204,112 +1281,222 @@
                 min-height: calc(100vh - 10px);
             }
             
+            .sound-dropdown {
+                top: 8px;
+                right: 8px;
+            }
+
+            .sound-dropdown-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .game-header {
+                padding: 10px 12px;
+                height: 55px;
+            }
+
+            .game-content {
+                padding-top: 65px;
+                padding-bottom: 110px;
+            }
+
+            .game-score {
+                font-size: 14px;
+            }
+
+            .control-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            .game-controls {
+                gap: 6px;
+            }
+
+            .current-team {
+                font-size: 16px;
+                margin: 10px 0;
+            }
+
             .category-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
             
             .category-btn {
-                padding: 15px 10px;
-                min-height: 80px;
+                padding: 12px 8px;
+                min-height: 75px;
+            }
+
+            .category-icon {
+                font-size: 20px;
             }
             
             .game-card {
                 width: 90vw;
-                height: 25vh;
+                height: 35vh;
+                font-size: 18px;
+                padding: 15px;
             }
 
-            .sound-toggle-main, .control-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+            .game-timer {
+                width: 40vw;
+                height: 60px;
+                font-size: 24px;
+                bottom: 12px;
             }
 
             .difficulty-selector {
                 gap: 10px;
-                padding: 20px 15px;
+                padding: 15px 10px;
             }
 
             .difficulty-btn {
                 width: 40px;
                 height: 40px;
-                font-size: 20px;
+                font-size: 18px;
             }
 
             .difficulty-display {
-                min-width: 120px;
-                padding: 15px;
+                min-width: 110px;
+                padding: 12px;
+            }
+
+            .difficulty-level {
+                font-size: 24px;
+            }
+
+            .difficulty-name {
+                font-size: 14px;
             }
 
             .setting-control {
-                gap: 15px;
+                gap: 12px;
             }
 
             .setting-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
             }
 
             .setting-value {
                 min-width: 60px;
-                font-size: clamp(20px, 5vw, 24px);
-                padding: 8px 15px;
+                font-size: 18px;
+                padding: 6px 12px;
+            }
+
+            .bottom-menu {
+                gap: 12px;
+                padding: 8px;
+            }
+
+            .bottom-menu-item {
+                min-width: 48px;
+                padding: 8px;
+            }
+
+            .bottom-menu-item .icon {
+                font-size: 18px;
+            }
+
+            .bottom-menu-item .label {
+                font-size: 8px;
+            }
+
+            .swipe-hints {
+                max-width: 300px;
+                margin-top: 15px;
+            }
+
+            .swipe-hint {
+                padding: 10px 12px;
+                font-size: 12px;
+                gap: 6px;
             }
 
             .loader-progress {
-                width: 250px;
+                width: 220px;
                 height: 8px;
             }
 
             .loader-logo {
-                font-size: 36px;
-                margin-bottom: 30px;
-            }
-
-            .bottom-menu {
-                gap: 15px;
-                padding: 15px;
-            }
-
-            .bottom-menu-item {
-                min-width: 60px;
-                padding: 12px;
-            }
-
-            .bottom-menu-item .icon {
-                font-size: 20px;
-            }
-
-            .bottom-menu-item .label {
-                font-size: 11px;
+                font-size: 32px;
+                margin-bottom: 25px;
             }
         }
 
         @media (max-height: 600px) {
-            .game-area {
-                height: 30vh;
+            .game-content {
+                padding-bottom: 100px;
             }
             
             .game-card {
-                height: 20vh;
+                height: 30vh;
+            }
+
+            .game-timer {
+                height: 50px;
+                font-size: 20px;
+                bottom: 10px;
+            }
+        }
+
+        /* Очень маленькие экраны */
+        @media (max-width: 320px) {
+            .game-header {
+                padding: 8px 10px;
+                height: 50px;
+            }
+
+            .game-content {
+                padding-top: 60px;
+                padding-bottom: 100px;
+            }
+
+            .control-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+
+            .game-score {
+                font-size: 13px;
+            }
+
+            .game-timer {
+                width: 35vw;
+                height: 50px;
+                font-size: 18px;
+            }
+
+            .category-grid {
+                gap: 8px;
+            }
+
+            .category-btn {
+                padding: 8px 6px;
+                min-height: 65px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Обновленная кнопка звука с выпадающим меню -->
-    <div class="sound-control" id="soundControl">
-        <button class="sound-toggle-main" id="soundToggleMain" onclick="toggleSoundDropdown()">🔊</button>
-        <div class="sound-dropdown" id="soundDropdown">
-            <button class="sound-dropdown-item" onclick="toggleGlobalSound()">
-                <span class="icon" id="soundStatusIcon">🔊</span>
-                <span id="soundStatusText">Звук включен</span>
-            </button>
-            <button class="sound-dropdown-item" onclick="showPage('soundSettings'); toggleSoundDropdown();">
-                <span class="icon">⚙️</span>
+    <!-- Выпадающее меню звука -->
+    <div class="sound-dropdown" id="soundDropdown">
+        <button class="sound-dropdown-toggle" onclick="toggleSoundDropdown()">🔊</button>
+        <div class="sound-dropdown-menu">
+            <div class="sound-dropdown-item" onclick="toggleGlobalSound()">
+                <span id="soundToggleIcon">🔊</span>
+                <span id="soundToggleText">Вкл звук</span>
+            </div>
+            <div class="sound-dropdown-item" onclick="showSoundModal()">
+                <span>⚙️</span>
                 <span>Настройки</span>
-            </button>
+            </div>
         </div>
     </div>
 
@@ -1329,25 +1516,30 @@
             <button class="menu-button" onclick="startNewGame()">🎮 Новая игра</button>
             <button class="menu-button" id="continueBtn" disabled>⏯️ Продолжить игру</button>
             <button class="menu-button" onclick="showPage('rules')">📖 Правила</button>
+            <button class="menu-button" onclick="showPage('partnerTasks')">🎯 Задания от партнеров</button>
             
-            <!-- Новое горизонтальное меню внизу -->
+            <!-- Горизонтальное меню иконок -->
             <div class="bottom-menu">
-                <button class="bottom-menu-item" onclick="showPage('dispace')" title="DiSpace - цифровая экосистема">
+                <div class="bottom-menu-item" onclick="showSoundModal()">
+                    <div class="icon">🔊</div>
+                    <div class="label">Звук</div>
+                    <div class="tooltip">Настройки звука</div>
+                </div>
+                <div class="bottom-menu-item" onclick="showPage('dispace')">
                     <div class="icon">🚀</div>
                     <div class="label">DiSpace</div>
-                </button>
-                <button class="bottom-menu-item" onclick="showPage('ratings')" title="Рейтинги игроков">
+                    <div class="tooltip">О компании DiSpace</div>
+                </div>
+                <div class="bottom-menu-item" onclick="showPage('ratings')">
                     <div class="icon">🏆</div>
                     <div class="label">Рейтинги</div>
-                </button>
-                <button class="bottom-menu-item" onclick="showPage('partnerTasks')" title="Задания от партнеров">
-                    <div class="icon">🎯</div>
-                    <div class="label">Задания</div>
-                </button>
-                <button class="bottom-menu-item" onclick="showPage('rewards')" title="Мои награды и достижения">
+                    <div class="tooltip">Таблица лидеров</div>
+                </div>
+                <div class="bottom-menu-item" onclick="showPage('rewards')">
                     <div class="icon">🎁</div>
                     <div class="label">Награды</div>
-                </button>
+                    <div class="tooltip">Мои достижения</div>
+                </div>
             </div>
             
             <!-- О приложении внизу -->
@@ -1472,49 +1664,48 @@
         </div>
 
         <!-- Игровой экран -->
-        <div id="gameScreen" class="page" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 0;">
-            <!-- Фоновые подсказки -->
-            <div class="swipe-background">
-                <div class="swipe-bg-left" id="swipeBgLeft">❌ ПРОПУСТИТЬ</div>
-                <div class="swipe-bg-right" id="swipeBgRight">ОТГАДАНО ✅</div>
-            </div>
-            
-            <!-- Фиксированные кнопки управления -->
-            <div class="game-controls">
-                <button class="control-btn" id="gameSoundToggle" onclick="toggleGameSound()">🔊</button>
-                <button class="control-btn" onclick="pauseGame()">⏸️</button>
-                <button class="control-btn" onclick="exitToMenu()">🏠</button>
-            </div>
-            
+        <div id="gameScreen" class="page game-screen">
+            <!-- Фиксированная шапка -->
             <div class="game-header">
                 <div class="game-score" id="headerScore">Очки: 0</div>
+                <div class="game-controls">
+                    <button class="control-btn" id="gameSoundToggle" onclick="toggleGameSound()">🔊</button>
+                    <button class="control-btn" onclick="pauseGame()">⏸️</button>
+                    <button class="control-btn" onclick="exitToMenu()">🏠</button>
+                </div>
             </div>
             
-            <div class="current-team" id="currentTeam" style="text-align: center; font-size: 20px; color: white; margin: 20px 0;">Команда 1</div>
-            
-            <div class="game-area">
-                <div class="game-card" id="gameCard">
-                    <div class="swipe-indicators">
-                        <div class="swipe-indicator left">❌</div>
-                        <div class="swipe-indicator right">✅</div>
-                    </div>
-                    <span id="cardText">Готов?</span>
+            <!-- Контент игры -->
+            <div class="game-content">
+                <!-- Фоновые подсказки -->
+                <div class="swipe-background">
+                    <div class="swipe-bg-left" id="swipeBgLeft">❌ ПРОПУСТИТЬ</div>
+                    <div class="swipe-bg-right" id="swipeBgRight">ОТГАДАНО ✅</div>
                 </div>
                 
-                <!-- Визуальные подсказки -->
-                <div class="swipe-hints">
-                    <div class="swipe-hint left">
-                        <span>←</span>
-                        <span>Пропустить</span>
+                <div class="current-team" id="currentTeam">Команда 1</div>
+                
+                <div class="game-area">
+                    <div class="game-card" id="gameCard">
+                        <div class="swipe-indicators">
+                            <div class="swipe-indicator left">❌</div>
+                            <div class="swipe-indicator right">✅</div>
+                        </div>
+                        <span id="cardText">Готов?</span>
                     </div>
-                    <div class="swipe-hint right">
-                        <span>Отгадано</span>
-                        <span>→</span>
+                    
+                    <!-- Визуальные подсказки -->
+                    <div class="swipe-hints" id="swipeHints">
+                        <div class="swipe-hint ready">
+                            <span>Свайп вправо →</span>
+                            <span>Готов!</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="game-timer" id="gameTimer">60</div>
+            <!-- Фиксированный таймер -->
+            <div class="game-timer" id="gameTimer" style="display: none;">60</div>
         </div>
 
         <!-- Промежуточные результаты -->
@@ -1554,25 +1745,6 @@
                 </div>
                 <button class="menu-button victory-button" onclick="showPage('mainMenu')">🏠 В главное меню</button>
             </div>
-        </div>
-
-        <!-- Упрощенные настройки звука -->
-        <div id="soundSettings" class="page">
-            <div class="back-button" onclick="showPage('mainMenu')">← Назад</div>
-            <h2>Настройки звука</h2>
-            <div class="sound-settings">
-                <div class="volume-control">
-                    <label>Звуки кнопок:</label>
-                    <input type="range" id="buttonVolume" min="0" max="100" value="50">
-                    <span class="volume-value" id="buttonVolumeValue">50%</span>
-                </div>
-                <div class="volume-control">
-                    <label>Звуки таймера:</label>
-                    <input type="range" id="timerVolume" min="0" max="100" value="80">
-                    <span class="volume-value" id="timerVolumeValue">80%</span>
-                </div>
-            </div>
-            <button class="menu-button" onclick="testSounds()">🔊 Тест звуков</button>
         </div>
 
         <!-- DiSpace -->
@@ -1653,6 +1825,30 @@
                 <button class="menu-button" onclick="exitToMenuConfirm()">🏠 В главное меню</button>
             </div>
         </div>
+
+        <!-- Модальное окно настроек звука -->
+        <div id="soundModal" class="modal sound-modal">
+            <div class="modal-content">
+                <h3>Настройки звука</h3>
+                
+                <div class="volume-control">
+                    <label>Звуки свайпов:</label>
+                    <input type="range" id="swipeVolume" min="0" max="100" value="60">
+                    <span class="volume-value" id="swipeVolumeValue">60%</span>
+                </div>
+
+                <div class="volume-control">
+                    <label>Звуки таймера:</label>
+                    <input type="range" id="timerVolume" min="0" max="100" value="80">
+                    <span class="volume-value" id="timerVolumeValue">80%</span>
+                </div>
+
+                <div class="modal-buttons">
+                    <button class="menu-button" onclick="testSounds()">🔊 Тест звуков</button>
+                    <button class="cancel" onclick="closeModal()">Готово</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1663,14 +1859,14 @@
         let timer = null;
         let timeLeft = 60;
         let gameWords = [];
-        let usedWords = new Set(); // Отслеживаем использованные слова
+        let usedWords = new Set();
         let roundWords = { correct: [], incorrect: [] };
         let gameSettings = {
             roundTime: 60,
             winScore: 30,
             skipPenalty: false,
             betAmount: 0,
-            difficulty: 0 // 0=easy, 1=medium, 2=hard, 3=extreme
+            difficulty: 0
         };
         let currentEditingTeam = null;
         let isDragging = false;
@@ -1678,23 +1874,23 @@
         let currentX = 0;
         let isPaused = false;
         let gameEnded = false;
+        let gameStarted = false;
         let soundSettings = {
-            buttons: 50,
+            swipe: 60,
             timer: 80,
             enabled: true
         };
+        let soundDropdownOpen = false;
 
-        // Веселые названия команд
+        // Креативные названия команд
         const randomTeamNames = [
-            'Квантовые Мечтатели', 'Цифровые Гении', 'Неоновые Ниндзя', 'Космические Коты',
-            'Пиксельные Пираты', 'Виртуальные Викинги', 'Электронные Эльфы', 'Кибер Кракены',
-            'Битовые Бойцы', 'Алгоритмические Акулы', 'Хакерские Хамелеоны', 'Дата Драконы',
-            'Код Командоры', 'Файловые Феи', 'Интернет Исследователи', 'Логические Ламы',
-            'Процессорные Панды', 'Серверные Совы', 'Технологичные Тигры', 'Умные Ёжики',
-            'Байтовые Бобры', 'Гига Гепарды', 'Мега Медведи', 'Тера Туканы',
-            'Смарт Сфинксы', 'Диджитал Дельфины', 'Нано Носороги', 'Микро Мангусты',
-            'Веб Волки', 'Чат Черепахи', 'Блог Барсуки', 'Сайт Слоны',
-            'Апп Аисты', 'Код Кенгуру', 'Скрипт Скорпионы', 'База Бегемоты'
+            'Космические Единороги', 'Танцующие Роботы', 'Летающие Енеки', 'Магические Пингвины',
+            'Сверкающие Драконы', 'Мудрые Совушки', 'Смелые Хомяки', 'Весёлые Панды',
+            'Быстрые Лисички', 'Умные Кроты', 'Добрые Медведи', 'Храбрые Зайцы',
+            'Озорные Белки', 'Мечтающие Слоны', 'Поющие Дельфины', 'Игривые Котики',
+            'Радужные Бабочки', 'Солнечные Львы', 'Лунные Волки', 'Звёздные Тигры',
+            'Изумрудные Ёжики', 'Золотые Орлы', 'Серебряные Акулы', 'Алмазные Фламинго',
+            'Неоновые Жирафы', 'Плазменные Кенгуру', 'Лазерные Черепахи', 'Кибер Коалы'
         ];
 
         // Словари сложности
@@ -1731,15 +1927,6 @@
         };
 
         // Звуковые эффекты
-        const sounds = {
-            button: () => playTone(220, 100, soundSettings.buttons),
-            correct: () => playTone(440, 200, 60),
-            incorrect: () => playTone(165, 300, 60),
-            timer: () => playTone(880, 100, soundSettings.timer),
-            roundEnd: () => playTone(330, 500, 60)
-        };
-
-        // Функция создания тона
         function playTone(frequency, duration, volume = 50) {
             if (!soundSettings.enabled) return;
             
@@ -1767,68 +1954,94 @@
             }
         }
 
+        // Звуковые функции
+        function playSwipeSound(isCorrect) {
+            const frequency = isCorrect ? 440 : 165;  // Правильно = 440Hz, Пропуск = 165Hz
+            playTone(frequency, 200, soundSettings.swipe);
+        }
+
+        function playTimerSound() {
+            playTone(880, 100, soundSettings.timer);
+        }
+
+        function playCountdownSound() {
+            playTone(330, 300, soundSettings.timer);
+        }
+
         // Инициализация
         function init() {
-            // Показываем лоадер
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('mainMenu').classList.add('active');
             }, 3000);
 
-            // Загружаем настройки звука
             loadSoundSettings();
 
-            // Добавляем две команды по умолчанию с рандомными названиями
-            const team1Name = randomTeamNames[Math.floor(Math.random() * randomTeamNames.length)];
-            let team2Name;
-            do {
-                team2Name = randomTeamNames[Math.floor(Math.random() * randomTeamNames.length)];
-            } while (team2Name === team1Name);
-
             teams = [
-                { name: team1Name, score: 0 },
-                { name: team2Name, score: 0 }
+                { name: getRandomTeamName(), score: 0 },
+                { name: getRandomTeamName(), score: 0 }
             ];
             renderTeams();
 
-            // Добавляем обработчики для категорий
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.addEventListener('click', toggleCategory);
             });
 
-            // Настройка свайпов для игровой карточки
             setupCardSwipe();
-
-            // Настройка звуковых ползунков
             setupSoundControls();
-
-            // Добавляем звуки кнопок
-            document.querySelectorAll('.menu-button, .back-button, .control-btn').forEach(btn => {
-                btn.addEventListener('click', () => playSound('button'));
-            });
-
-            // Обновляем кнопки звука
-            updateSoundButtons();
-
-            // Инициализируем настройки игры
+            updateSoundDropdown();
             initGameSettings();
             initDifficultySelector();
 
-            // Закрываем выпадающее меню при клике вне его
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.sound-control')) {
-                    document.getElementById('soundDropdown').classList.remove('show');
+                if (!e.target.closest('.sound-dropdown')) {
+                    closeSoundDropdown();
                 }
             });
         }
 
-        // Функции управления выпадающим меню звука
-        function toggleSoundDropdown() {
-            const dropdown = document.getElementById('soundDropdown');
-            dropdown.classList.toggle('show');
+        function getRandomTeamName() {
+            let usedNames = teams.map(team => team.name);
+            let availableNames = randomTeamNames.filter(name => !usedNames.includes(name));
+            if (availableNames.length === 0) availableNames = randomTeamNames;
+            return availableNames[Math.floor(Math.random() * availableNames.length)];
         }
 
-        // Настройки звука
+        function toggleSoundDropdown() {
+            const dropdown = document.getElementById('soundDropdown');
+            soundDropdownOpen = !soundDropdownOpen;
+            
+            if (soundDropdownOpen) {
+                dropdown.classList.add('active');
+            } else {
+                dropdown.classList.remove('active');
+            }
+        }
+
+        function closeSoundDropdown() {
+            document.getElementById('soundDropdown').classList.remove('active');
+            soundDropdownOpen = false;
+        }
+
+        function updateSoundDropdown() {
+            const toggle = document.querySelector('.sound-dropdown-toggle');
+            const icon = document.getElementById('soundToggleIcon');
+            const text = document.getElementById('soundToggleText');
+            const item = document.querySelector('.sound-dropdown-item');
+            
+            if (soundSettings.enabled) {
+                toggle.textContent = '🔊';
+                icon.textContent = '🔇';
+                text.textContent = 'Выкл звук';
+                item.classList.remove('active');
+            } else {
+                toggle.textContent = '🔇';
+                icon.textContent = '🔊';
+                text.textContent = 'Вкл звук';
+                item.classList.add('active');
+            }
+        }
+
         function loadSoundSettings() {
             const saved = localStorage.getItem('aliasSound');
             if (saved) {
@@ -1839,23 +2052,22 @@
 
         function saveSoundSettings() {
             localStorage.setItem('aliasSound', JSON.stringify(soundSettings));
-            updateSoundButtons();
+            updateSoundDropdown();
         }
 
         function setupSoundControls() {
-            const controls = ['button', 'timer'];
+            const controls = ['swipe', 'timer'];
             controls.forEach(type => {
                 const slider = document.getElementById(`${type}Volume`);
                 const value = document.getElementById(`${type}VolumeValue`);
                 
                 if (slider && value) {
-                    const soundType = type === 'button' ? 'buttons' : type;
-                    slider.value = soundSettings[soundType];
+                    slider.value = soundSettings[type];
                     value.textContent = slider.value + '%';
                     
                     slider.addEventListener('input', (e) => {
                         const val = e.target.value;
-                        soundSettings[soundType] = parseInt(val);
+                        soundSettings[type] = parseInt(val);
                         value.textContent = val + '%';
                         saveSoundSettings();
                     });
@@ -1864,73 +2076,43 @@
         }
 
         function updateSoundUI() {
-            const controls = ['button', 'timer'];
+            const controls = ['swipe', 'timer'];
             controls.forEach(type => {
                 const slider = document.getElementById(`${type}Volume`);
                 const value = document.getElementById(`${type}VolumeValue`);
                 
                 if (slider && value) {
-                    const soundType = type === 'button' ? 'buttons' : type;
-                    slider.value = soundSettings[soundType];
-                    value.textContent = soundSettings[soundType] + '%';
+                    slider.value = soundSettings[type];
+                    value.textContent = soundSettings[type] + '%';
                 }
             });
-        }
-
-        function playSound(type) {
-            if (sounds[type]) {
-                sounds[type]();
-            }
         }
 
         function toggleGlobalSound() {
             soundSettings.enabled = !soundSettings.enabled;
             saveSoundSettings();
-            updateSoundButtons();
-            playSound('button');
-            toggleSoundDropdown();
+            updateSoundDropdown();
+            closeSoundDropdown();
         }
 
         function toggleGameSound() {
             soundSettings.enabled = !soundSettings.enabled;
             saveSoundSettings();
-            updateSoundButtons();
-            playSound('button');
+            updateSoundDropdown();
         }
 
-        function updateSoundButtons() {
-            // Обновляем главную кнопку
-            const mainBtn = document.getElementById('soundToggleMain');
-            if (mainBtn) {
-                mainBtn.textContent = soundSettings.enabled ? '🔊' : '🔇';
-                mainBtn.classList.toggle('muted', !soundSettings.enabled);
-            }
-
-            // Обновляем игровую кнопку
-            const gameBtn = document.getElementById('gameSoundToggle');
-            if (gameBtn) {
-                gameBtn.textContent = soundSettings.enabled ? '🔊' : '🔇';
-                gameBtn.classList.toggle('muted', !soundSettings.enabled);
-            }
-
-            // Обновляем текст в выпадающем меню
-            const statusIcon = document.getElementById('soundStatusIcon');
-            const statusText = document.getElementById('soundStatusText');
-            if (statusIcon && statusText) {
-                statusIcon.textContent = soundSettings.enabled ? '🔊' : '🔇';
-                statusText.textContent = soundSettings.enabled ? 'Звук включен' : 'Звук выключен';
-            }
+        function showSoundModal() {
+            closeSoundDropdown();
+            document.getElementById('soundModal').classList.add('active');
         }
 
         function testSounds() {
-            setTimeout(() => playSound('button'), 100);
-            setTimeout(() => playSound('correct'), 500);
-            setTimeout(() => playSound('incorrect'), 1000);
-            setTimeout(() => playSound('timer'), 1500);
-            setTimeout(() => playSound('roundEnd'), 2000);
+            setTimeout(() => playSwipeSound(true), 100);
+            setTimeout(() => playSwipeSound(false), 600);
+            setTimeout(() => playTimerSound(), 1200);
+            setTimeout(() => playCountdownSound(), 1800);
         }
 
-        // Инициализация настроек игры
         function initGameSettings() {
             updateSettingDisplay('roundTime', gameSettings.roundTime + ' сек');
             updateSettingDisplay('winScore', gameSettings.winScore);
@@ -1949,7 +2131,6 @@
         }
 
         function adjustDifficulty(delta) {
-            playSound('button');
             gameSettings.difficulty = Math.max(0, Math.min(difficultyLevels.length - 1, gameSettings.difficulty + delta));
             updateDifficultyDisplay();
         }
@@ -1959,8 +2140,6 @@
         }
 
         function adjustSetting(setting, delta) {
-            playSound('button');
-            
             if (setting === 'roundTime') {
                 gameSettings.roundTime = Math.max(30, Math.min(180, gameSettings.roundTime + delta));
                 updateSettingDisplay('roundTime', gameSettings.roundTime + ' сек');
@@ -1975,47 +2154,33 @@
             document.getElementById('betValue').textContent = value + ' монет';
         }
 
-        // Переключение между страницами
         function showPage(pageId) {
-            playSound('button');
+            closeSoundDropdown();
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             document.getElementById(pageId).classList.add('active');
             
-            // Скрываем/показываем звуковые элементы управления
-            const soundControl = document.getElementById('soundControl');
+            const soundDropdown = document.getElementById('soundDropdown');
             if (pageId === 'gameScreen') {
-                soundControl.style.display = 'none';
+                soundDropdown.style.display = 'none';
             } else {
-                soundControl.style.display = 'block';
-                // Закрываем выпадающее меню
-                document.getElementById('soundDropdown').classList.remove('show');
+                soundDropdown.style.display = 'block';
             }
         }
 
-        // Начать новую игру
         function startNewGame() {
-            playSound('button');
             gameEnded = false;
-            usedWords.clear(); // Сбрасываем использованные слова
-            
-            // Генерируем новые рандомные названия команд
-            const team1Name = randomTeamNames[Math.floor(Math.random() * randomTeamNames.length)];
-            let team2Name;
-            do {
-                team2Name = randomTeamNames[Math.floor(Math.random() * randomTeamNames.length)];
-            } while (team2Name === team1Name);
-
+            gameStarted = false;
+            usedWords.clear();
             teams = [
-                { name: team1Name, score: 0 },
-                { name: team2Name, score: 0 }
+                { name: getRandomTeamName(), score: 0 },
+                { name: getRandomTeamName(), score: 0 }
             ];
             renderTeams();
             showPage('teamSetup');
         }
 
-        // Управление командами
         function renderTeams() {
             const teamList = document.getElementById('teamList');
             teamList.innerHTML = '';
@@ -2033,31 +2198,22 @@
         }
 
         function addTeam() {
-            playSound('button');
             if (teams.length >= 10) {
                 alert('Максимум 10 команд!');
                 return;
             }
             
-            // Выбираем название, которое еще не используется
-            let randomName;
-            do {
-                randomName = randomTeamNames[Math.floor(Math.random() * randomTeamNames.length)];
-            } while (teams.some(team => team.name === randomName));
-            
-            teams.push({ name: randomName, score: 0 });
+            teams.push({ name: getRandomTeamName(), score: 0 });
             renderTeams();
         }
 
         function editTeam(index) {
-            playSound('button');
             currentEditingTeam = index;
             document.getElementById('teamNameInput').value = teams[index].name;
             document.getElementById('teamModal').classList.add('active');
         }
 
         function saveTeamName() {
-            playSound('button');
             const newName = document.getElementById('teamNameInput').value.trim();
             if (newName) {
                 teams[currentEditingTeam].name = newName;
@@ -2067,7 +2223,6 @@
         }
 
         function deleteTeam() {
-            playSound('button');
             if (teams.length > 2) {
                 teams.splice(currentEditingTeam, 1);
                 renderTeams();
@@ -2078,19 +2233,15 @@
         }
 
         function closeModal() {
-            playSound('button');
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.classList.remove('active');
             });
         }
 
-        // Управление категориями
         function toggleCategory(e) {
-            playSound('button');
             const btn = e.target.closest('.category-btn');
             btn.classList.toggle('selected');
             
-            // Скрываем предупреждение если выбрана хотя бы одна тема
             const selectedThemes = document.querySelectorAll('[data-type="theme"].selected');
             const warning = document.getElementById('themeWarning');
             if (selectedThemes.length > 0) {
@@ -2098,7 +2249,6 @@
             }
         }
 
-        // Проверка выбора тем перед переходом к настройкам
         function proceedToGameSettings() {
             const selectedThemes = document.querySelectorAll('[data-type="theme"].selected');
             const warning = document.getElementById('themeWarning');
@@ -2112,24 +2262,18 @@
             showPage('gameSettings');
         }
 
-        // Начать игру
         function startGame() {
-            playSound('button');
-            
-            // Получаем настройки из интерфейса
             gameSettings.skipPenalty = document.getElementById('skipPenalty').checked;
             gameSettings.betAmount = parseInt(document.getElementById('betSlider').value);
 
-            // Подготавливаем слова
             prepareGameWords();
             
-            // Сбрасываем счет
             teams.forEach(team => team.score = 0);
             currentTeamIndex = 0;
             gameEnded = false;
-            usedWords.clear(); // Сбрасываем использованные слова
+            gameStarted = false;
+            usedWords.clear();
             
-            // Показываем игровой экран
             showPage('gameScreen');
             prepareRound();
         }
@@ -2137,21 +2281,17 @@
         function prepareGameWords() {
             gameWords = [];
             
-            // Получаем выбранную сложность
             const difficulty = difficultyLevels[gameSettings.difficulty].value;
             
-            // Получаем выбранные темы
             const selectedThemes = Array.from(document.querySelectorAll('[data-type="theme"].selected'))
                 .map(btn => btn.dataset.value);
             
-            // Собираем слова из выбранных категорий
             selectedThemes.forEach(theme => {
                 if (wordDictionaries[difficulty] && wordDictionaries[difficulty][theme]) {
                     gameWords.push(...wordDictionaries[difficulty][theme]);
                 }
             });
             
-            // Перемешиваем слова
             gameWords.sort(() => Math.random() - 0.5);
         }
 
@@ -2163,9 +2303,20 @@
             
             roundWords = { correct: [], incorrect: [] };
             timeLeft = gameSettings.roundTime;
-            updateTimer();
+            gameStarted = false;
             
-            // Ждем свайп для начала
+            // Скрываем таймер до начала игры
+            document.getElementById('gameTimer').style.display = 'none';
+            
+            // Показываем подсказку готовности
+            const hints = document.getElementById('swipeHints');
+            hints.innerHTML = `
+                <div class="swipe-hint ready">
+                    <span>Свайп вправо →</span>
+                    <span>Готов!</span>
+                </div>
+            `;
+            
             waitForReady();
         }
 
@@ -2174,21 +2325,42 @@
             card.dataset.mode = 'ready';
         }
 
-        function startRound() {
-            playSound('button');
-            
-            // Обратный отсчет
+        function startCountdown() {
+            // Обратный отсчет 3, 2, 1, Поехали!
             let countdown = 3;
             const card = document.getElementById('gameCard');
             card.dataset.mode = 'countdown';
+            card.classList.add('countdown');
+            
+            // Показываем таймер
+            document.getElementById('gameTimer').style.display = 'flex';
+            document.getElementById('gameTimer').textContent = gameSettings.roundTime;
+            
+            // Обновляем подсказки
+            const hints = document.getElementById('swipeHints');
+            hints.innerHTML = `
+                <div class="swipe-hint left">
+                    <span>←</span>
+                    <span>Пропустить</span>
+                </div>
+                <div class="swipe-hint right">
+                    <span>Отгадано</span>
+                    <span>→</span>
+                </div>
+            `;
+            
+            const countdownTexts = ['3', '2', '1', 'Поехали!'];
             
             const countdownInterval = setInterval(() => {
-                document.getElementById('cardText').textContent = countdown;
-                countdown--;
-                
-                if (countdown < 0) {
+                if (countdown >= 0) {
+                    document.getElementById('cardText').textContent = countdownTexts[3 - countdown];
+                    playCountdownSound();
+                    countdown--;
+                } else {
                     clearInterval(countdownInterval);
                     card.dataset.mode = 'game';
+                    card.classList.remove('countdown');
+                    gameStarted = true;
                     showNextWord();
                     startTimer();
                 }
@@ -2196,39 +2368,37 @@
         }
 
         function showNextWord() {
-            // Фильтруем неиспользованные слова
             const availableWords = gameWords.filter(word => !usedWords.has(word));
             
             if (availableWords.length === 0) {
-                // Если все слова использованы, сбрасываем использованные
                 usedWords.clear();
-                prepareGameWords(); // Перемешиваем заново
+                prepareGameWords();
                 return showNextWord();
             }
             
-            // Берем случайное слово из доступных
             const randomIndex = Math.floor(Math.random() * availableWords.length);
             currentWord = availableWords[randomIndex];
-            usedWords.add(currentWord); // Помечаем как использованное
+            usedWords.add(currentWord);
             
             document.getElementById('cardText').textContent = currentWord;
         }
 
         function handleWordResult(isCorrect) {
+            if (!gameStarted) return;
+            
             const currentTeam = teams[currentTeamIndex];
             
             if (isCorrect) {
                 currentTeam.score++;
                 roundWords.correct.push(currentWord);
-                playSound('correct');
             } else {
                 if (gameSettings.skipPenalty) {
                     currentTeam.score = Math.max(0, currentTeam.score - 1);
                 }
                 roundWords.incorrect.push(currentWord);
-                playSound('incorrect');
             }
             
+            playSwipeSound(isCorrect);
             document.getElementById('headerScore').textContent = `Очки: ${currentTeam.score}`;
             showNextWord();
         }
@@ -2236,28 +2406,22 @@
         function startTimer() {
             timer = setInterval(() => {
                 timeLeft--;
-                updateTimer();
+                document.getElementById('gameTimer').textContent = timeLeft;
                 
                 if (timeLeft <= 10 && timeLeft > 0) {
-                    playSound('timer');
+                    playTimerSound();
                     document.getElementById('gameTimer').classList.add('warning');
                 }
                 
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    playSound('roundEnd');
                     endRound();
                 }
             }, 1000);
         }
 
-        function updateTimer() {
-            document.getElementById('gameTimer').textContent = timeLeft;
-        }
-
         function pauseGame() {
-            playSound('button');
-            if (timer) {
+            if (timer && gameStarted) {
                 clearInterval(timer);
                 isPaused = true;
                 document.getElementById('pauseModal').classList.add('active');
@@ -2265,30 +2429,29 @@
         }
 
         function resumeGame() {
-            playSound('button');
             isPaused = false;
             closeModal();
-            if (timeLeft > 0 && !gameEnded) {
+            if (timeLeft > 0 && !gameEnded && gameStarted) {
                 startTimer();
             }
         }
 
         function exitToMenu() {
-            playSound('button');
             document.getElementById('pauseModal').classList.add('active');
         }
 
         function exitToMenuConfirm() {
-            playSound('button');
             clearInterval(timer);
             isPaused = false;
             gameEnded = true;
+            gameStarted = false;
             closeModal();
             showPage('mainMenu');
         }
 
         function endRound() {
             clearInterval(timer);
+            gameStarted = false;
             document.getElementById('gameTimer').classList.remove('warning');
             showRoundResults();
         }
@@ -2299,7 +2462,6 @@
             const resultsList = document.getElementById('resultsList');
             resultsList.innerHTML = '';
             
-            // Показываем угаданные слова
             roundWords.correct.forEach((word, index) => {
                 const wordDiv = document.createElement('div');
                 wordDiv.className = 'word-result correct';
@@ -2308,7 +2470,6 @@
                 resultsList.appendChild(wordDiv);
             });
             
-            // Показываем пропущенные слова
             roundWords.incorrect.forEach((word, index) => {
                 const wordDiv = document.createElement('div');
                 wordDiv.className = 'word-result incorrect';
@@ -2323,11 +2484,9 @@
         }
 
         function toggleWordResult(word, index, wasCorrect) {
-            playSound('button');
             const currentTeam = teams[currentTeamIndex];
             
             if (wasCorrect) {
-                // Перемещаем из правильных в неправильные
                 roundWords.correct.splice(index, 1);
                 roundWords.incorrect.push(word);
                 currentTeam.score--;
@@ -2335,7 +2494,6 @@
                     currentTeam.score = Math.max(0, currentTeam.score - 1);
                 }
             } else {
-                // Перемещаем из неправильных в правильные
                 roundWords.incorrect.splice(index, 1);
                 roundWords.correct.push(word);
                 currentTeam.score++;
@@ -2348,16 +2506,11 @@
         }
 
         function nextRound() {
-            playSound('button');
-            
-            // Переходим к следующей команде
             currentTeamIndex = (currentTeamIndex + 1) % teams.length;
             
-            // Проверяем условия победы после полного раунда
             if (currentTeamIndex === 0) {
                 checkForWinner();
             } else {
-                // Продолжаем игру со следующей командой
                 showPage('gameScreen');
                 prepareRound();
             }
@@ -2367,13 +2520,9 @@
             const maxScore = Math.max(...teams.map(team => team.score));
             const teamsWithMaxScore = teams.filter(team => team.score === maxScore);
             
-            // Победитель определяется если:
-            // 1. Максимальный счет >= минимального для победы
-            // 2. И есть команда с явным превосходством
             if (maxScore >= gameSettings.winScore && teamsWithMaxScore.length === 1) {
                 endGame();
             } else {
-                // Продолжаем игру
                 showPage('gameScreen');
                 prepareRound();
             }
@@ -2382,8 +2531,8 @@
         function endGame() {
             clearInterval(timer);
             gameEnded = true;
+            gameStarted = false;
             
-            // Находим команду с максимальным счетом
             const maxScore = Math.max(...teams.map(team => team.score));
             const winners = teams.filter(team => team.score === maxScore);
             
@@ -2396,13 +2545,11 @@
                 document.getElementById('finalScore').textContent = maxScore;
             }
             
-            // Рассчитываем призовой фонд
             const prizePool = gameSettings.betAmount * teams.length;
             document.getElementById('prizeAmount').textContent = prizePool;
             
             showPage('finalResults');
             
-            // Сохраняем статистику
             saveGameStats(winners.length === 1 ? winners[0] : null);
         }
 
@@ -2417,7 +2564,6 @@
             localStorage.setItem('aliasStats', JSON.stringify(stats));
         }
 
-        // Настройка свайпов
         function setupCardSwipe() {
             const card = document.getElementById('gameCard');
             const leftIndicator = document.querySelector('.swipe-indicator.left');
@@ -2450,7 +2596,6 @@
                 
                 card.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.1}deg)`;
                 
-                // Показываем индикаторы
                 if (deltaX < -50) {
                     leftIndicator.classList.add('active');
                     rightIndicator.classList.remove('active');
@@ -2480,13 +2625,12 @@
                 
                 if (Math.abs(deltaX) > 100) {
                     if (mode === 'ready' && deltaX > 0) {
-                        startRound();
-                    } else if (mode === 'game' && !gameEnded) {
-                        handleWordResult(deltaX > 0); // вправо = правильно, влево = неправильно
+                        startCountdown();
+                    } else if (mode === 'game' && gameStarted && !gameEnded) {
+                        handleWordResult(deltaX > 0);
                     }
                 }
                 
-                // Возвращаем карточку на место
                 card.style.transform = '';
                 leftIndicator.classList.remove('active');
                 rightIndicator.classList.remove('active');
@@ -2495,10 +2639,8 @@
             }
         }
 
-        // Инициализация при загрузке
         window.addEventListener('DOMContentLoaded', init);
         
-        // Предотвращение скролла на мобильных устройствах
         document.addEventListener('touchmove', function(e) {
             if (e.target.closest('.game-card')) {
                 e.preventDefault();
